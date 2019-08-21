@@ -1,72 +1,36 @@
-import { Controller, Get, Res, Post, Body, Put, Param, Delete, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Res, Post, Body, Put, Param, Delete, HttpStatus, UsePipes, HttpCode } from '@nestjs/common';
 import { BookDto } from './dto/book.dto';
 import { BookService } from './services/book.service';
 
 @Controller('book')
-export class BookController 
-{
+export class BookController {
     constructor(
-        private bookService: BookService
-    )
-    {}
+        private bookService: BookService,
+    ) {}
 
     @Get()
-    all(@Res() response) 
-    {
-        this.bookService
-            .all()
-            .then(libraries => 
-            {
-                response.status(HttpStatus.CREATED).json(libraries);
-            })
-            .catch(error => 
-            {
-                response.status(HttpStatus.FORBIDDEN).json({message: 'error get book', error});
-            });
+    all() {
+        return this.bookService.all();
     }
-    
+
+    @Get(':id')
+    one(@Param('id') id: number) {
+        return this.bookService.one(id);
+    }
+
     @Post()
-    create(@Body() book: BookDto, @Res() response)
-    {
-        this.bookService
-            .create(book)
-            .then(book => 
-            {
-                response.status(HttpStatus.CREATED).json(book);
-            })
-            .catch(error => 
-            {
-                response.status(HttpStatus.FORBIDDEN).json({message: 'error create book', error});
-            });
+    @HttpCode(HttpStatus.CREATED)
+    create(@Body() book: BookDto) {
+        return this.bookService.create(book);
     }
 
     @Put(':id')
-    update(@Param('id') id: number, @Body() book: BookDto, @Res() response) 
-    {
-        this.bookService
-            .update(id, book)
-            .then(book => 
-            {
-                response.status(HttpStatus.OK).json(book);
-            })
-            .catch(error => 
-            {
-                response.status(HttpStatus.FORBIDDEN).json({message: 'error update book', error});
-            });
+    update(@Param('id') id: number, @Body() book: BookDto) {
+        return this.bookService.update(id, book);
     }
 
     @Delete(':id')
-    delete(@Param('id') id: number, @Res() response)
-    {
-        this.bookService
-            .delete(id)
-            .then(book => 
-            {
-                response.status(HttpStatus.OK).json(book);
-            })
-            .catch(error => 
-            {
-                response.status(HttpStatus.FORBIDDEN).json({message: 'error delete book', error});
-            });
+    delete(@Param('id') id: number) {
+        return this.bookService.delete(id);
     }
 }

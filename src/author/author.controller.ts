@@ -1,72 +1,36 @@
-import { Controller, Get, Res, Req, Post, Body, Put, Param, Delete, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Res, Req, Post, Body, Put, Param, Delete, HttpStatus, UsePipes, HttpCode } from '@nestjs/common';
 import { AuthorDto } from './dto/author.dto';
 import { AuthorService } from './services/author.service';
 
 @Controller('author')
-export class AuthorController 
-{
+export class AuthorController {
     constructor(
-        private authorService: AuthorService
-    )
-    {}
+        private authorService: AuthorService,
+    ) {}
 
     @Get()
-    all(@Res() response) 
-    {
-        this.authorService
-            .all()
-            .then(authors => 
-            {
-                response.status(HttpStatus.CREATED).json(authors);
-            })
-            .catch(error => 
-            {
-                response.status(HttpStatus.FORBIDDEN).json({message: 'error get author', error});
-            });
+    all() {
+        return this.authorService.all();
     }
-    
+
+    @Get(':id')
+    one(@Param('id') id: number) {
+        return this.authorService.one(id);
+    }
+
     @Post()
-    create(@Body() author: AuthorDto, @Res() response)
-    {
-        this.authorService
-            .create(author)
-            .then(author => 
-            {
-                response.status(HttpStatus.CREATED).json(author);
-            })
-            .catch(error => 
-            {
-                response.status(HttpStatus.FORBIDDEN).json({message: 'error create author', error});
-            });
+    @HttpCode(HttpStatus.CREATED)
+    create(@Body() author: AuthorDto) {
+        return this.authorService.create(author);
     }
 
     @Put(':id')
-    update(@Param('id') id: number, @Body() author: AuthorDto, @Res() response) 
-    {
-        this.authorService
-            .update(id, author)
-            .then(author => 
-            {
-                response.status(HttpStatus.OK).json(author);
-            })
-            .catch(error => 
-            {
-                response.status(HttpStatus.FORBIDDEN).json({message: 'error update author', error});
-            });
+    update(@Param('id') id: number, @Body() author: AuthorDto) {
+        return this.authorService.update(id, author);
     }
 
     @Delete(':id')
-    delete(@Param('id') id: number, @Res() response)
-    {
-        this.authorService
-            .delete(id)
-            .then(author => 
-            {
-                response.status(HttpStatus.OK).json(author);
-            })
-            .catch(error => 
-            {
-                response.status(HttpStatus.FORBIDDEN).json({message: 'error delete author', error});
-            });
+    delete(@Param('id') id: number) {
+        return this.authorService.delete(id);
     }
 }

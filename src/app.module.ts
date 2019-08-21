@@ -8,22 +8,25 @@ import { AuthorService } from './author/services/author.service';
 import { Book } from './book/entities/book.entity';
 import { BookController } from './book/book.controller';
 import { BookService } from './book/services/book.service';
+import { GenreService } from './genre/services/genre.service';
+import { GenreController } from './genre/genre.controller';
+import { Genre } from './genre/entities/genre.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      "type": "mysql",
-      "host": "localhost",
-      "port": 33001,
-      "username": "root",
-      "password": "123456",
-      "database": "book_local",
-      "entities": ["src/**/*.entity{.ts,.js}"],
-      "synchronize": true
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'admin',
+      password: 'admin',
+      database: 'library',
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      synchronize: true,
     }),
-    TypeOrmModule.forFeature([Author, Book])
+    TypeOrmModule.forFeature([Author, Book, Genre]),
   ],
-  controllers: [AppController, AuthorController, BookController],
-  providers: [AppService, AuthorService, BookService],
+  controllers: [AppController, AuthorController, BookController, GenreController],
+  providers: [AppService, AuthorService, BookService, GenreService],
 })
 export class AppModule {}
