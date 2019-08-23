@@ -1,6 +1,6 @@
 import { Controller, Get, Res, Post, Body, Put, Param, Delete, HttpStatus, UsePipes, HttpCode } from '@nestjs/common';
-import { GenreDto } from './dto/genre.dto';
-import { GenreService } from './services/genre.service';
+import { GenreDto } from '../dto/genre.dto';
+import { GenreService } from '../services/genre.service';
 
 @Controller('genre')
 export class GenreController {

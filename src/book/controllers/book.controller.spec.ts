@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { BookController } from './book.controller';
-import { BookService } from './services/book.service';
-import { Book } from './entities/book.entity';
+import { BookService } from '../services/book.service';
+import { Book } from '../entities/book.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('BookController', () => {

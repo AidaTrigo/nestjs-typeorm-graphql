@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { GenreController } from './genre.controller';
-import { GenreService } from './services/genre.service';
-import { Genre } from './entities/genre.entity';
+import { GenreService } from '../services/genre.service';
+import { Genre } from '../entities/genre.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('GenreController', () => {

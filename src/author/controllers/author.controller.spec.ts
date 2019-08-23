@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { AuthorController } from './author.controller';
-import { AuthorService } from './services/author.service';
-import { Author } from './entities/author.entity';
+import { AuthorService } from '../services/author.service';
+import { Author } from '../entities/author.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('AuthorController', () => {
