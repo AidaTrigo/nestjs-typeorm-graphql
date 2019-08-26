@@ -13,6 +13,9 @@ import { GenreController } from './genre/controllers/genre.controller';
 import { Genre } from './genre/entities/genre.entity';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
+import { AuthorResolver } from './author/graphql/author.resolver';
+import { BookResolver } from './book/graphql/book.resolver';
+import { GenreResolver } from './genre/graphql/genre.resolver';
 
 @Module({
   imports: [
@@ -25,7 +28,7 @@ import { join } from 'path';
         },
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'mysql' as 'mysql',
       host: 'localhost',
       port: 3306,
       username: 'admin',
@@ -33,6 +36,7 @@ import { join } from 'path';
       database: 'library',
       entities: [__dirname + '/**/**/*.entity{.ts,.js}'],
       synchronize: true,
+      // logging: true,
     }),
     TypeOrmModule.forFeature([
       Author,
@@ -51,6 +55,11 @@ import { join } from 'path';
     AuthorService,
     BookService,
     GenreService,
+
+    // resolvers
+    AuthorResolver,
+    BookResolver,
+    GenreResolver,
   ],
 })
 export class AppModule {}

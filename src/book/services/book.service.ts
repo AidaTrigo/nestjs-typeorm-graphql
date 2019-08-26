@@ -12,8 +12,8 @@ export class BookService {
         private readonly bookRepository: Repository<Book>,
     ) {}
 
-    async all(): Promise<Book[]> {
-        return await this.bookRepository.find();
+    async all(constraint?: object): Promise<Book[]> {
+        return await this.bookRepository.find(constraint);
     }
 
     async one(id: number): Promise<Book> {
