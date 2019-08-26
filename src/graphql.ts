@@ -14,14 +14,12 @@ export interface Book {
     id: number;
     name: string;
     author?: Author;
-    genres?: Genre;
+    genres?: Genre[];
 }
 
 export interface Genre {
     id: number;
     name: string;
-    author?: Author;
-    genres?: Genre;
 }
 
 export interface IQuery {

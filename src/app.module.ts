@@ -25,7 +25,7 @@ import { join } from 'path';
         },
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql' as 'mysql',
+      type: 'mysql',
       host: 'localhost',
       port: 3306,
       username: 'admin',

@@ -9,22 +9,22 @@ import * as _ from 'lodash';
 export class BookService {
     constructor(
         @InjectRepository(Book)
-        private readonly bookRepository: Repository<BookDto>,
+        private readonly bookRepository: Repository<Book>,
     ) {}
 
-    async all(): Promise<BookDto[]> {
+    async all(): Promise<Book[]> {
         return await this.bookRepository.find();
     }
 
-    async one(id: number): Promise<BookDto> {
+    async one(id: number): Promise<Book> {
         return await this.bookRepository.findOne(id);
     }
 
-    async create(library: BookDto): Promise<BookDto> {
+    async create(library: BookDto): Promise<Book> {
         return await this.bookRepository.save(library);
     }
 
-    async update(id: number, book: BookDto): Promise<BookDto> {
+    async update(id: number, book: BookDto): Promise<Book> {
         await this.bookRepository.update(id, _.pick(book, BookDto.manageable));
 
         if (book.genres) {
@@ -51,7 +51,7 @@ export class BookService {
         return await this.bookRepository.findOne(id);
     }
 
-    async delete(id: number): Promise<BookDto> {
+    async delete(id: number): Promise<Book> {
         const library = await this.bookRepository.findOne(id);
         await this.bookRepository.delete(id);
 
