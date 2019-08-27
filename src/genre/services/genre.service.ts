@@ -19,19 +19,20 @@ export class GenreService {
         return await this.genreRepository.findOne(id);
     }
 
-    async create(library: GenreDto): Promise<GenreDto> {
-        return await this.genreRepository.save(library);
+    async create(genre: GenreDto): Promise<GenreDto> {
+        const savedGenre =  await this.genreRepository.save(genre);
+        return await this.genreRepository.findOne(savedGenre.id);
     }
 
-    async update(id: number, library: GenreDto): Promise<GenreDto> {
-        await this.genreRepository.update(id, library);
+    async update(id: number, genre: GenreDto): Promise<GenreDto> {
+        await this.genreRepository.update(id, genre);
         return await this.genreRepository.findOne(id);
     }
 
     async delete(id: number): Promise<GenreDto> {
-        const library = await this.genreRepository.findOne(id);
+        const genre = await this.genreRepository.findOne(id);
         await this.genreRepository.delete(id);
 
-        return library;
+        return genre;
     }
 }

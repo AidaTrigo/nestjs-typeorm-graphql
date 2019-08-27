@@ -21,7 +21,8 @@ export class BookService {
     }
 
     async create(library: BookDto): Promise<Book> {
-        return await this.bookRepository.save(library);
+        const book =  await this.bookRepository.save(library);
+        return await this.bookRepository.findOne(book.id);
     }
 
     async update(id: number, book: BookDto): Promise<Book> {

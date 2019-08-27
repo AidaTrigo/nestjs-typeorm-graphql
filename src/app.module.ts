@@ -16,9 +16,13 @@ import { join } from 'path';
 import { AuthorResolver } from './author/graphql/author.resolver';
 import { BookResolver } from './book/graphql/book.resolver';
 import { GenreResolver } from './genre/graphql/genre.resolver';
+import { ConfigModule } from './config/config.module';
+import { ConfigService } from './config/config.service';
 
 @Module({
   imports: [
+    // MODULES
+    ConfigModule,
     GraphQLModule.forRoot({
         debug: true,
         playground: true,
@@ -27,36 +31,56 @@ import { GenreResolver } from './genre/graphql/genre.resolver';
             path: join(process.cwd(), 'src/graphql.ts'),
         },
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql' as 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'admin',
-      password: 'admin',
-      database: 'library',
-      entities: [__dirname + '/**/**/*.entity{.ts,.js}'],
-      synchronize: true,
-      // logging: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+          type: 'mysql' as 'mysql',
+          host: config.get('DATABASE_HOST'),
+          port: config.get('DATABASE_PORT') as unknown as number,
+          username: config.get('DATABASE_USER'),
+          password: config.get('DATABASE_PASSWORD'),
+          database: config.get('DATABASE_SCHEMA'),
+          entities: [__dirname + '/**/**/*.entity{.ts,.js}'],
+          synchronize: true,
+      }),
+      inject: [ConfigService],
     }),
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql' as 'mysql',
+    //   host: 'localhost',
+    //   port: 3306,
+    //   username: 'admin',
+    //   password: 'admin',
+    //   database: 'library',
+    //   entities: [__dirname + '/**/**/*.entity{.ts,.js}'],
+    //   synchronize: true,
+    //   // logging: true,
+    // }),
     TypeOrmModule.forFeature([
+      // ENTITIES
       Author,
       Book,
       Genre,
     ]),
   ],
   controllers: [
+    // CONTROLLERS
     AppController,
     AuthorController,
     BookController,
     GenreController,
   ],
   providers: [
+    // CONFIG MODULE
+    ConfigModule,
+
+    // SERVICES
     AppService,
     AuthorService,
     BookService,
     GenreService,
 
-    // resolvers
+    // RESOLVERS
     AuthorResolver,
     BookResolver,
     GenreResolver,
