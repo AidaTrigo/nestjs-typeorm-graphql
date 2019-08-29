@@ -18,11 +18,13 @@ import { BookResolver } from './book/graphql/book.resolver';
 import { GenreResolver } from './genre/graphql/genre.resolver';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
+import { CustomLoggerModule } from './custom-logger/custom-logger.module';
 
 @Module({
   imports: [
     // MODULES
     ConfigModule,
+    CustomLoggerModule,
     GraphQLModule.forRoot({
         debug: true,
         playground: true,
