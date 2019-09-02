@@ -19,12 +19,16 @@ import { GenreResolver } from './genre/graphql/genre.resolver';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { CustomLoggerModule } from './custom-logger/custom-logger.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     // MODULES
     ConfigModule,
     CustomLoggerModule,
+    AuthModule,
+    UsersModule,
     GraphQLModule.forRoot({
         debug: true,
         playground: true,
