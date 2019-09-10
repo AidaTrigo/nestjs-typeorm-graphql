@@ -1,7 +1,7 @@
 type Author {
     id: Int!
     name: String!
-    authors: [Author]
+    books: [Book]
 }
 
 input AuthorInput {

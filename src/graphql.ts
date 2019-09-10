@@ -25,7 +25,7 @@ export interface GenreInput {
 export interface Author {
     id: number;
     name: string;
-    authors?: Author[];
+    books?: Book[];
 }
 
 export interface Book {

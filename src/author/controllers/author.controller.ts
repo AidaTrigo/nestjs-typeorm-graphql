@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, HttpStatus, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, HttpStatus, HttpCode, UseGuards } from '@nestjs/common';
 import { AuthorDto } from '../dto/author.dto';
 import { AuthorService } from '../services/author.service';
 import { ApiUseTags, ApiCreatedResponse, ApiForbiddenResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiUseTags('library')
 @Controller('author')
@@ -10,16 +11,19 @@ export class AuthorController {
         private authorService: AuthorService,
     ) {}
 
+    @UseGuards(AuthGuard('jwt'))
     @Get()
     all() {
         return this.authorService.all();
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get(':id')
     one(@Param('id') id: number) {
         return this.authorService.one(id);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @ApiCreatedResponse({description: 'The record has been successfully created.'})
@@ -28,6 +32,7 @@ export class AuthorController {
         return this.authorService.create(author);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Put(':id')
     @ApiNotFoundResponse({description: 'ID not found.'})
     @ApiForbiddenResponse({description: 'Forbidden.'})
@@ -35,6 +40,7 @@ export class AuthorController {
         return this.authorService.update(id, author);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
     delete(@Param('id') id: number) {
         return this.authorService.delete(id);
