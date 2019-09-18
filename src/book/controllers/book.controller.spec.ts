@@ -50,6 +50,7 @@ describe('BookController', () => {
                     author: {
                         id: 1,
                         name: 'Sarah',
+                        books: [],
                     },
                     genres: [],
                 },
@@ -59,6 +60,7 @@ describe('BookController', () => {
                     author: {
                         id: 1,
                         name: 'Sarah',
+                        books: [],
                     },
                     genres: [],
                 },
@@ -81,6 +83,7 @@ describe('BookController', () => {
                     author: {
                         id: 1,
                         name: 'Sarah',
+                        books: [],
                     },
                     genres: [],
                 };
@@ -102,6 +105,7 @@ describe('BookController', () => {
                     author: {
                         id: 1,
                         name: 'Sarah',
+                        books: [],
                     },
                     genres: [],
                 };
@@ -123,6 +127,7 @@ describe('BookController', () => {
                     author: {
                         id: 1,
                         name: 'Sarah',
+                        books: [],
                     },
                     genres: [],
                 };
@@ -144,6 +149,7 @@ describe('BookController', () => {
                     author: {
                         id: 1,
                         name: 'Sarah',
+                        books: [],
                     },
                     genres: [],
                 };

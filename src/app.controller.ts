@@ -13,7 +13,6 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
-  // @UseGuards(AuthGuard('local'))
   @Post('refreshToken')
   async refreshToken(@Body() body) {
     return this.authService.refreshToken(body.refresh_token);
